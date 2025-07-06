@@ -1,19 +1,37 @@
 # Events App
 
-Mobile events application developed by Rúben Vicente.
+Mobile events application developed by MrCenas.
 App to list events where users can view details, participate/cancel participation, add/remove favorites, and authenticate via Firebase.
+This project is open source and available for anyone to use, modify, and redistribute.
 
-## Required/Used
+## Features
 
+- User authentication via Firebase
+- Event listing with image, date, and location
+- Join or cancel participation in events
+- Add or remove events from favorites
+- Real-time updates using Firebase Firestore
+- Intuitive interface with tab navigation
+- Support for pull-to-refresh and refresh on screen focus
+
+## Technologies Required/Used
+
+- `React`
 - `React Native`
 - `Expo`
-- `Firebase Authentication`
-- `Firebase Firestore`
-- `React Navigation`
-- `Vector Icons (Entypo, Ionicons, SimpleLineIcons)`
+- `Firebase`
+- `@react-native-firebase/app`
+- `@react-native-firebase/auth`
+- `@react-navigation/native`
+- `@react-navigation/stack`
+- `@react-navigation/bottom-tabs`
+- `@expo/vector-icons`
+- `@react-native-async-storage/async-storage`
+- `@react-native-community/datetimepicker`
+- `react-native-paper`
+- `react-native-toast-message`
 - `Context API`
-- `Pull-to-Refresh`
-- `Custom Hooks (pull-to-refresh, refresh on focus)`
+- `Custom Hooks`
 
 ## Installation
 
@@ -37,7 +55,7 @@ App to list events where users can view details, participate/cancel participatio
    - Create a Firebase project at https://console.firebase.google.com/
    - Enable Authentication (email/password)
    - Set up Firestore
-   - Copy your Firebase credentials into a firebaseConfig.js file (this file is not included in the repository for security):
+   - Go to Project Settings > General > Your Apps, and copy the Firebase config into a firebaseConfig.js file (this file is not included in the repository for security):
      // firebaseConfig.js
      export const firebaseConfig = {
      apiKey: "YOUR_API_KEY",
@@ -48,33 +66,52 @@ App to list events where users can view details, participate/cancel participatio
      appId: "YOUR_APP_ID"
      };
 
-4. Start the application:
-   expo start
+4. Firestore Database Structure:
+   The app uses three main Firestore collections: events, tasks, and users.
 
-## Usage
+   **_Collection: events_**
+   Each document represents an event, with the following fields:
 
-This app was created to allow users to:
+   - datetime (timestamp)
+   - description (string)
+   - imageUrl (string)
+   - location (string)
+   - participants (array of user IDs)
+   - title (string)
 
-- View events with image, date, location, and description.
-- Participate or cancel participation in events.
-- Add or remove events from their favorites.
-- Authenticate via email and password.
-- Sync all interactions with Firebase in real-time.
+   **_Collection: tasks_**
+   Each document represents a task related to a user, with fields:
 
-This project is open source and available for anyone to use, modify, and redistribute.
+   - completed (boolean)
+   - createdAt (timestamp)
+   - description (string)
+   - userId (string)
 
-## Main Dependencies
+   **_Collection: users_**
+   Each document corresponds to a user, containing:
 
-- expo
-- firebase
-- react-native
-- @react-navigation/native
-- @react-navigation/native-stack
-- @expo/vector-icons
+   - createdAt (timestamp)
+   - email (string)
+   - favorites (array of event IDs)
+   - name (string)
+   - participations (array of event IDs)
+
+   **Notes**
+
+   - The arrays (participants, favorites, participations) store IDs as strings.
+   - Make sure your Firestore security rules allow users to read/write only what is appropriate.
+   - Timestamps should be stored using Firestore's timestamp type for correct querying and sorting.
+
+5. Start the application:
+   npm start
 
 ## Screenshots
 
-TO BE ADDED
+![Login](/screenshots/EventBuddySS1.png)
+![Events](/screenshots/EventBuddySS2.png)
+![Favorites](/screenshots/EventBuddySS3.png)
+![Search](/screenshots/EventBuddySS4.png)
+![Event](/screenshots/EventBuddySS5.png)
 
 ## Future Plans
 
