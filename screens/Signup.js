@@ -47,7 +47,6 @@ export default function SignupScreen({ navigation }) {
         text1: "Account created",
         text2: "Welcome!",
       });
-      navigation.navigate("Login");
     } catch (error) {
       Toast.show({
         type: "error",
